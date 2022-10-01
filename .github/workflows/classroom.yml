@@ -14,12 +14,12 @@ jobs:
 
       # TODO build, test and deploy project
       - name: Deploy
-      uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "outsidious-persons-service"
-        heroku_email: "s18b3_vlasenko@179.ru"
-        usedocker: true
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "outsidious-persons-service"
+          heroku_email: "s18b3_vlasenko@179.ru"
+          usedocker: true
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
