@@ -12,6 +12,36 @@ jobs:
         with:
           fetch-depth: 0
 
+      # TODO build, test and deploy project
+        - name: Deploy
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "outsidious-persons-service"
+          heroku_email: "s18b3_vlasenko@179.ru"
+          usedocker: true
+
+      - name: Run API Tests
+        uses: matt-ball/newman-action@master
+        with:
+          collection: postman/[inst] Lab1.postman_collection.json
+          environment: postman/[inst][heroku] Lab1.postman_environment.json
+          delayRequest: 100
+          reporters: '[ "cli" ]'
+      #
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+
+      - name: Run API Tests
+        id: run-newman
+        uses: anthonyvscode/newman-action@v1
+        with:
+          collection: postman/[inst] Lab1.postman_collection.json
+          environment: postman/[inst][heroku] Lab1.postman_environment.json
+          delayRequest: 50
+          reporters: cli
+
       - name: Autograding
         uses: education/autograding@v1
         continue-on-error: true
@@ -22,6 +52,6 @@ jobs:
           google_token: ${{secrets.GOOGLE_API_KEY}}
           sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
           homework_number: 1
-          user_column: 'D'
-          column_offset: 'F'
+          user_column: "D"
+          column_offset: "F"
           mark: "'+"
