@@ -32,7 +32,7 @@ function loadBody(request, callback) {
     });
 }
 
-const baseUrl = "api/v1";
+const baseUrl = "/api/v1";
 
 app.get(`${baseUrl}/persons/:id`, (req, res) => {
   const id = req.params.id;
