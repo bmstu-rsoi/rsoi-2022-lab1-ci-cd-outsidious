@@ -62,8 +62,9 @@ app.get(`${baseUrl}/persons`, (req, res) => {
 app.post(`${baseUrl}/persons`, (req, res) => {
   loadBody(req, function (body) {
     const { name, age, address, work } = JSON.parse(body);
-    const dbQuery = `INSERT INTO persons(id, name, age, address, work) VALUES (DEFAULT, ${name}, ${age}, ${address}, ${work});`;
+    const dbQuery = `INSERT INTO persons(id, name, age, address, work) VALUES (DEFAULT, '${name}', ${age}, '${address}', '${work}');`;
     client.query(dbQuery, (err, dbRes) => {
+      console.log(err);
       if (err) res.status(400).json(null);
       else res.status(201).json(null);
     });
@@ -74,7 +75,7 @@ app.patch(`${baseUrl}/persons/:id`, (req, res) => {
   const id = req.params.id;
   loadBody(req, function (body) {
     const { name, age, address, work } = JSON.parse(body);
-    const dbQuery = `UPDATE persons SET name=${name}, age=${age}, address=${address}, work=${work}) WHERE id=${id};`;
+    const dbQuery = `UPDATE persons SET name='${name}', age=${age}, address='${address}', work='${work}') WHERE id=${id};`;
     client.query(dbQuery, (err, dbRes) => {
       if (err) res.status(400).json(null);
       else res.status(200).json(null);
