@@ -71,7 +71,8 @@ app.post(`${baseUrl}/persons`, (req, res) => {
           .header(
             "Location",
             `https://outsidious-persons-service.herokuapp.com/api/v1/persons/${dbRes.rows[0].id}`
-          );
+          )
+          .json("");
     });
   });
 });
