@@ -62,11 +62,16 @@ app.get(`${baseUrl}/persons`, (req, res) => {
 app.post(`${baseUrl}/persons`, (req, res) => {
   loadBody(req, function (body) {
     const { name, age, address, work } = JSON.parse(body);
-    const dbQuery = `INSERT INTO persons(id, name, age, address, work) VALUES (DEFAULT, '${name}', ${age}, '${address}', '${work}');`;
+    const dbQuery = `INSERT INTO persons(id, name, age, address, work) VALUES (DEFAULT, '${name}', ${age}, '${address}', '${work}') RETURNING id;`;
     client.query(dbQuery, (err, dbRes) => {
-      console.log(err);
       if (err) res.status(400).json(null);
-      else res.status(201).json(null);
+      else
+        res
+          .status(201)
+          .header(
+            "Location",
+            `https://outsidious-persons-service.herokuapp.com/api/v1/persons/${dbRes.rows[0].id}`
+          );
     });
   });
 });

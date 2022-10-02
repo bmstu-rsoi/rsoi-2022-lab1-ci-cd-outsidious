@@ -21,10 +21,6 @@ jobs:
           heroku_email: "s18b3_vlasenko@179.ru"
           usedocker: true
 
-      - name: Timeout
-        run: sleep 30s
-        shell: bash
-
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
