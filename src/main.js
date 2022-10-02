@@ -18,7 +18,12 @@ app.use(function (req, res, next) {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const client = new pg.Client(conString);
+const client = new pg.Client({
+  connectionString: conString,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 client.connect();
 
 function loadBody(request, callback) {
