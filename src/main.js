@@ -2,15 +2,9 @@ const express = require("express");
 const pg = require("pg");
 
 const app = express();
-const conString = process.env.DATABASE_URL;
-
-app.use(function (req, res, next) {
-  res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+const conString =
+  process.env.DATABASE_URL ||
+  "postgres://zrnbftzzkkxdnk:ca64f3e6bbe7722050974df2dba7c614a328d9171ce01801c8302e71f83a123d@ec2-52-212-228-71.eu-west-1.compute.amazonaws.com:5432/dbp66bf0s5o43f";
 
 const client = new pg.Client({
   connectionString: conString,
