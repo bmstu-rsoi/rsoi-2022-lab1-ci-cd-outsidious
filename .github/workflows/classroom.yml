@@ -22,7 +22,7 @@ jobs:
           usedocker: true
       
       - name: Timeout
-        run: sleep 40s
+        run: sleep 120s
         shell: bash
 
       - name: Run API Tests
