@@ -67,10 +67,7 @@ app.post(`${baseUrl}/persons`, (req, res) => {
       else
         res
           .status(201)
-          .header(
-            "Location",
-            `https://outsidious-persons-service.herokuapp.com/api/v1/persons/${dbRes.rows[0].id}`
-          )
+          .header("Location", `/api/v1/persons/${dbRes.rows[0].id}`)
           .json("");
     });
   });
