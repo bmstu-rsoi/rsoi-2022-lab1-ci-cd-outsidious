@@ -33,7 +33,7 @@ app.get(`${baseUrl}/persons/:id`, (req, res) => {
   const dbQuery = `SELECT * FROM persons where id=${id};`;
   client.query(dbQuery, (err, dbRes) => {
     if (dbRes.rowCount > 0) {
-      res.status(200).json(JSON.stringify(dbRes.rows[0]));
+      res.status(200).json(dbRes.rows[0]);
     } else {
       res.status(404).json(null);
     }
