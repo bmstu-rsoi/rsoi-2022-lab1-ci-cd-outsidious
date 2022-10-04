@@ -66,7 +66,6 @@ app.patch(`${baseUrl}/persons/:id`, (req, res) => {
   const id = req.params.id;
   loadBody(req, function (body) {
     const { name, age, address, work } = JSON.parse(body);
-    console.log(name, address);
     let flag = false;
     let dbQuery = `UPDATE persons SET `;
     if (name) {
@@ -78,6 +77,7 @@ app.patch(`${baseUrl}/persons/:id`, (req, res) => {
       flag = true;
     }
     if (address) {
+      console.log(flag ? ", " : "" + `address='${address}'`);
       dbQuery += flag ? ", " : "" + `address='${address}'`;
       flag = true;
     }
