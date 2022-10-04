@@ -84,12 +84,12 @@ app.patch(`${baseUrl}/persons/:id`, (req, res) => {
       dbQuery += (flag ? ", " : "") + `work='${work}'`;
       flag = true;
     }
-    dbQuery += ` WHERE id=${id};`;
+    dbQuery += ` WHERE id=${id} RETURNING *;`;
     console.log(dbQuery);
     if (flag) {
       client.query(dbQuery, (err, dbRes) => {
         if (err) res.status(400).json(null);
-        else res.status(200).json(null);
+        else res.status(200).json(dbRes.rows[0]);
       });
     } else {
       res.status(400).json(null);
