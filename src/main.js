@@ -66,11 +66,34 @@ app.patch(`${baseUrl}/persons/:id`, (req, res) => {
   const id = req.params.id;
   loadBody(req, function (body) {
     const { name, age, address, work } = JSON.parse(body);
-    const dbQuery = `UPDATE persons SET name='${name}', age=${age}, address='${address}', work='${work}') WHERE id=${id};`;
-    client.query(dbQuery, (err, dbRes) => {
-      if (err) res.status(400).json(null);
-      else res.status(200).json(null);
-    });
+    let flag = false;
+    let dbQuery = `UPDATE persons SET `;
+    if (name) {
+      dbQuery += flag ? ", " : "" + `name='${name}'`;
+      flag = true;
+    }
+    if (age) {
+      dbQuery += flag ? ", " : "" + `age='${age}'`;
+      flag = true;
+    }
+    if (address) {
+      dbQuery += flag ? ", " : "" + `address='${address}'`;
+      flag = true;
+    }
+    if (work) {
+      dbQuery += flag ? ", " : "" + `work='${work}'`;
+      flag = true;
+    }
+    dbQuery += ` WHERE id=${id};`;
+    console.log(dbQuery);
+    if (flag) {
+      client.query(dbQuery, (err, dbRes) => {
+        if (err) res.status(400).json(null);
+        else res.status(200).json(null);
+      });
+    } else {
+      res.status(400).json(null);
+    }
   });
 });
 
