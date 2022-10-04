@@ -69,20 +69,19 @@ app.patch(`${baseUrl}/persons/:id`, (req, res) => {
     let flag = false;
     let dbQuery = `UPDATE persons SET `;
     if (name) {
-      dbQuery += flag ? ", " : "" + `name='${name}'`;
+      dbQuery += (flag ? ", " : "") + `name='${name}'`;
       flag = true;
     }
     if (age) {
-      dbQuery += flag ? ", " : "" + `age='${age}'`;
+      dbQuery += (flag ? ", " : "") + `age='${age}'`;
       flag = true;
     }
     if (address) {
-      console.log(flag ? ", " : "" + `address='${address}'`);
-      dbQuery += flag ? ", " : "" + `address='${address}'`;
+      dbQuery += (flag ? ", " : "") + `address='${address}'`;
       flag = true;
     }
     if (work) {
-      dbQuery += flag ? ", " : "" + `work='${work}'`;
+      dbQuery += (flag ? ", " : "") + `work='${work}'`;
       flag = true;
     }
     dbQuery += ` WHERE id=${id};`;
